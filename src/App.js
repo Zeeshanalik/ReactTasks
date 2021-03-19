@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Form from "./components/Form"
+import FormTable from "./components/FormTable"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+//import './App.css';
+function App(){
+      const [detailsList, setDetailsList] = useState([])
+      const [person, setPerson] = useState({name: "", fatherName: "", age:0, address:""})
+
+      
+      const addDetails = (name, fatherName, age, address) => {
+      const detailsObject ={name: name, fatherName: fatherName, age: age, address:address};
+      setDetailsList ([...detailsList, detailsObject])}
+      
+  
+  return(
+    <div>
+        
+        <Form addDetails={addDetails} person={person} setPerson={setPerson}/>
+        <FormTable person={person}  setPerson={setPerson} detailsList={detailsList} />
+      
     </div>
-  );
-}
+  )
 
-export default App;
+}
+export default App
