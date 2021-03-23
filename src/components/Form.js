@@ -4,7 +4,7 @@ const Form = ({propsObject}) => {
     const handleClick = (e) => {
         e.preventDefault();
         
-        if(personDetails.name==="" || personDetails.fatherName === "" || personDetails.address ==="" || personDetails.age===0) {
+        if(!personDetails.name || !personDetails.fatherName || !personDetails.address || personDetails.age <= 0 ) {
             alert("Error! Please enter your details again correctly!")     
            }
             
@@ -12,7 +12,6 @@ const Form = ({propsObject}) => {
 
            if (isEditButtonClicked){
             let newArr = [...detailsList];
-            console.log(personId)
             const updatedArray = newArr.map(value => {
                 if (value.id === personId){
                     return {

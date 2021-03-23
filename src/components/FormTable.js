@@ -1,6 +1,6 @@
 import React from "react";
 const FormTable = ({propsObject}) => {
-    const {detailsList,setPersonDetails,setEditButton,setPersonId, personId} = propsObject 
+    const {detailsList,setPersonDetails,setEditButton,setPersonId} = propsObject 
     
     const handleEdit=(detId)=>{
     
