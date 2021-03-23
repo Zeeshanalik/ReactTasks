@@ -1,12 +1,13 @@
 import React from "react";
-function FormTable({detailsList,setPerson, person,addDetails,edit,setEdit,setDetailsList,arrIndex,setArrIndex, id, setId}) {
+const FormTable = ({propsObject}) => {
+    const {detailsList,setPersonDetails,setEditButton,setPersonId, personId} = propsObject 
     
     const handleEdit=(detId)=>{
     
-     setEdit(true)
+    setEditButton(true)
     const tempObj = detailsList.filter((value) =>  (detId === value.id))[0]
-    setId(detId)
-    setPerson(tempObj) 
+    setPersonId(detId)
+    setPersonDetails(tempObj) 
 
     
     }
@@ -24,14 +25,14 @@ function FormTable({detailsList,setPerson, person,addDetails,edit,setEdit,setDet
                 </tr>
             </thead>
             <tbody>
-                {detailsList.map((detail) => (
+                {detailsList.map(({id,name,fatherName,age,address}) => (
                     <tr>
-                        <td>{detail.id}</td>
-                        <td>{detail.name}</td>
-                        <td>{detail.fatherName}</td>
-                        <td>{detail.age}</td>
-                        <td>{detail.address}</td>
-                        <td><button onClick={()=>handleEdit(detail.id)}>Edit</button></td>
+                        <td>{id}</td>
+                        <td>{name}</td>
+                        <td>{fatherName}</td>
+                        <td>{age}</td>
+                        <td>{address}</td>
+                        <td><button onClick={()=>handleEdit(id)}>Edit</button></td>
                     </tr>
                 ))}
             </tbody>
