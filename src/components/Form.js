@@ -1,50 +1,83 @@
-import React, {useState} from "react";
-function Form({addDetails,person, setPerson}){
+import React from "react";
+const Form = ({propsObject}) => {
+    const {detailsList,setPersonDetails, personDetails,addDetails,isEditButtonClicked,setEditButton,setDetailsList, personId} = propsObject 
     const handleClick = (e) => {
         e.preventDefault();
-        addDetails(person.name, person.fatherName, person.age, person.address);
-        setPerson({name: "", fatherName: "", age: 0, address: ""})
+        
+        if(!personDetails.name || !personDetails.fatherName || !personDetails.address || personDetails.age <= 0 ) {
+            alert("Error! Please enter your details again correctly!")     
+           }
+            
+           else addDetails(personDetails.id, personDetails.name, personDetails.fatherName, personDetails.age, personDetails.address);
+
+           if (isEditButtonClicked){
+            let newArr = [...detailsList];
+            const updatedArray = newArr.map(value => {
+                if (value.id === personId){
+                    return {
+                        id: personId,
+                        name: personDetails.name,
+                        fatherName: personDetails.fatherName,
+                        age: personDetails.age,
+                        address: personDetails.address
+                        
+                    }
+                } else return value;
+            })
+            setDetailsList(updatedArray);
+            setEditButton(false)
+    }
+    setPersonDetails({id:0 , name: "", fatherName: "", age: 0, address: ""})
 
     }
-
     
     return(
         <div>
-            <form>
+            <form className="login-form">
+            <label>Please Enter Your Id </label>
+            <input type="number" 
+            placeholder="Id" 
+            value={personDetails.id} 
+            onChange={(e) => setPersonDetails({...personDetails, id:e.target.value})}
+            />
+            <hr/>
 
             <label>Please Enter Your Name: </label>
             <input type="text" 
             placeholder="First Name" 
-            value={person.name} 
-            onChange={(e) => setPerson({...person, name:e.target.value})}/>
+            value={personDetails.name} 
+            onChange={(e) => setPersonDetails({...personDetails, name:e.target.value})}
+            
+            />
             <hr/>
 
             <label>Please Enter Your Father Name: </label>
             <input type="text" 
             placeholder="Father Name" 
-            value={person.fatherName} 
-            onChange={(e) => setPerson({...person, fatherName:e.target.value})}/>
+            value={personDetails.fatherName} 
+            onChange={(e) => setPersonDetails({...personDetails, fatherName:e.target.value})}/>
             <hr/>
 
             <label>Please Enter Your Age: </label>
             <input type="Number" 
             placeholder="Age" 
-            value={person.age} 
-            onChange={(e) => setPerson({...person, age:e.target.value})}/>
+            value={personDetails.age} 
+            onChange={(e) => setPersonDetails({...personDetails, age:e.target.value})}/>
             <hr/>
 
             <label>Please Enter Your Address: </label>
             <input type="text" 
             placeholder="Address" 
-            value={person.address} 
-            onChange={(e) => setPerson({...person, address:e.target.value})}/>
+            value={personDetails.address} 
+            onChange={(e) => setPersonDetails({...personDetails, address:e.target.value})}/>
             <br/>
-            <button onClick={handleClick}> Submit</button>
+            <button className="btn" onClick={handleClick}> Submit</button>
 
               </form>
         </div>
         
     )
+
 
 
 }
